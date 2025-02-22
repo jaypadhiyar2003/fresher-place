@@ -14,7 +14,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy application files
 COPY . .
 
-COPY .env /var/www/html/.env
+# Copy application files (including .env) to the container
+COPY . /var/www/html
 
 # Set proper permissions for storage and cache
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
