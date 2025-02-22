@@ -1,0 +1,16 @@
+services:
+  - name: laravel-docker
+    type: web
+    env: docker
+    repo: https://github.com/jaypadhiyar2003/fresher-place.git
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        sync: false
+      - key: DB_CONNECTION
+        value: sqlite
+      - key: DB_DATABASE
+        value: /var/www/html/database/database.sqlite
