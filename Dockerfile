@@ -4,16 +4,17 @@ FROM php:8.2-fpm
 # Set working directory
 WORKDIR /var/www/html
 
-# Ensure non-interactive installation
+# Ensure non-interactive installation to avoid prompts
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Update repositories and install dependencies
+# Update, install dependencies, and set up SQLite
 RUN apt-get update && \
     apt-get install -y \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
     sqlite3 \
+    libsqlite3-dev \
     unzip \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
@@ -25,7 +26,7 @@ RUN apt-get update && \
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy application code
+# Copy Laravel application code
 COPY . .
 
 # Set permissions for storage and cache
