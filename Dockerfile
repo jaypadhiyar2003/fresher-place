@@ -1,40 +1,30 @@
-# Use official PHP image
-FROM php:8.2
+# Use the official PHP image
+FROM php:8.2-cli
 
-# Set working directory
+# Set the working directory
 WORKDIR /var/www/html
 
-# Ensure non-interactive mode
-ENV DEBIAN_FRONTEND=noninteractive
-
-# Install necessary extensions and SQLite
-RUN apt-get update && \
-    apt-get install -y \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    sqlite3 \
+# Install system dependencies and SQLite extension
+RUN apt-get update && apt-get install -y \
     libsqlite3-dev \
+    sqlite3 \
     unzip \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libzip-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo pdo_sqlite mbstring exif pcntl bcmath gd zip \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    && docker-php-ext-install pdo pdo_sqlite
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy Laravel application
+# Copy the Laravel project into the container
 COPY . .
 
-# Set correct permissions
-RUN chown -R www-data:www-data /var/www/html && \
-    chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+# Install Laravel dependencies
+RUN composer install --no-dev --optimize-autoloader
 
-# Expose HTTP port 8000 for Laravel
+# Set proper permissions
+RUN chown -R www-data:www-data storage bootstrap/cache
+
+# Expose the application port
 EXPOSE 8000
 
-# Start Laravel using the built-in PHP server
+# Start the Laravel application
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
