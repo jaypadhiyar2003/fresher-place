@@ -20,11 +20,13 @@ COPY . .
 # Install Laravel dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Set proper permissions
-RUN chown -R www-data:www-data storage bootstrap/cache
 
 #Build vite assets
 RUN npm run build
+
+# Set proper permissions
+RUN chown -R www-data:www-data storage bootstrap/cache
+
 # Expose the application port
 EXPOSE 8000
 
