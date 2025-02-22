@@ -1,0 +1,9 @@
+RewriteBase /
+
+RewriteCond %{HTTP_HOST} !^subdomain
+RewriteCond %{REQUEST_URI} !^public
+RewriteRule ^(.*)$ public/$1 [L]
+
+RewriteCond %{HTTP_HOST} ^subdomain
+RewriteCond %{REQUEST_URI} !^public
+RewriteRule ^(.*)$ public/ [L]
