@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://fresher-place.onrender.com/public/'),
+    'url' => env('APP_URL', 'https://fresher-place.onrender.com'),
 
     /*
     |--------------------------------------------------------------------------
