@@ -1,39 +1,37 @@
-FROM ubuntu:latest
-LABEL authors="jaypadhiyar"
 # Use official PHP image
 FROM php:8.2-fpm
 
 # Set working directory
 WORKDIR /var/www/html
 
-# Install dependencies
-RUN apt-get update && apt-get install -y libpng-dev libonig-dev libxml2-dev sqlite3 unzip && \docker-php-ext-install pdo pdo_sqlite mbstring exif pcntl bcmath gd
+# Ensure non-interactive installation
+ENV DEBIAN_FRONTEND=noninteractive
 
-# Copy Laravel code
+# Update repositories and install dependencies
+RUN apt-get update && \
+    apt-get install -y \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    sqlite3 \
+    unzip \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libzip-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo pdo_sqlite mbstring exif pcntl bcmath gd zip \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Copy application code
 COPY . .
 
-# Copy and make the start.sh script executable
-COPY start.sh /start.sh
-RUN chmod +x /start.sh
+# Set permissions for storage and cache
+RUN chown -R www-data:www-data /var/www/html && \
+    chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Set entrypoint to the script
-ENTRYPOINT ["/start.sh"]
-
-# Image config
-ENV SKIP_COMPOSER 1
-ENV WEBROOT /var/www/html/public
-ENV PHP_ERRORS_STDERR 1
-ENV RUN_SCRIPTS 1
-ENV REAL_IP_HEADER 1
-
-# Laravel config
-ENV APP_ENV production
-ENV APP_DEBUG false
-ENV LOG_CHANNEL stderr
-
-# Allow composer to run as root
-ENV COMPOSER_ALLOW_SUPERUSER 1
-
-
-CMD ["/start.sh"]
-
+# Expose port and start PHP-FPM
+EXPOSE 9000
+CMD ["php-fpm"]
