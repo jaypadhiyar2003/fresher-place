@@ -6,9 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Fresher-Place</title>
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..600;1,100..600&display=swap" rel="stylesheet">
-    @vite([url('resources/js/app.js'),url('resources/css/app.css')])
+    @vite('resources/css/app.css')
 </head>
 <body class="bg-black text-white font-hanken-grotesk pb-20">
+@yield('content')
+@vite('resources/js/app.js')
     <div class="p">
         <nav class="flex justify-between items-center px-5 py-3 border-b border-white/20">
             <div>
