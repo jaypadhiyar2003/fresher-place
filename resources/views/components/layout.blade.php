@@ -9,7 +9,7 @@
     @vite('resources/css/app.css')
 </head>
 <body class="bg-black text-white font-hanken-grotesk pb-20">
-@yield('content')
+
 @vite('resources/js/app.js')
     <div class="p">
         <nav class="flex justify-between items-center px-5 py-3 border-b border-white/20">
@@ -30,7 +30,6 @@
 
                 <form method="POST" action="/logout">
                     @csrf
-                    @method('DELETE')
                     <button>Logout</button>
                 </form>
             </div>
