@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Fresher-Place</title>
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..600;1,100..600&display=swap" rel="stylesheet">
-    @vite(['resources/css/app.css','resources/js/app.js'])
+    @vite(['/resources/css/app.css','/resources/js/app.js'])
 </head>
 <body class="bg-black text-white font-hanken-grotesk pb-20">
     <div class="p">
