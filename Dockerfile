@@ -7,8 +7,7 @@ FROM php:8.2-fpm
 WORKDIR /var/www/html
 
 # Install dependencies
-RUN apt-get update && apt-get install -y libpng-dev libonig-dev libxml2-dev sqlite3 unzip && \
-    docker-php-ext-install pdo pdo_sqlite mbstring exif pcntl bcmath gd
+RUN apt-get update && apt-get install -y libpng-dev libonig-dev libxml2-dev sqlite3 unzip && \docker-php-ext-install pdo pdo_sqlite mbstring exif pcntl bcmath gd
 
 # Copy Laravel code
 COPY . .
