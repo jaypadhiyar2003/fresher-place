@@ -1,13 +1,13 @@
 # Use official PHP image
-FROM php:8.2-fpm
+FROM php:8.2
 
 # Set working directory
 WORKDIR /var/www/html
 
-# Ensure non-interactive installation to avoid prompts
+# Ensure non-interactive mode
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Update, install dependencies, and set up SQLite
+# Install necessary extensions and SQLite
 RUN apt-get update && \
     apt-get install -y \
     libpng-dev \
@@ -26,13 +26,15 @@ RUN apt-get update && \
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy Laravel application code
+# Copy Laravel application
 COPY . .
 
-# Set permissions for storage and cache
+# Set correct permissions
 RUN chown -R www-data:www-data /var/www/html && \
     chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Expose port and start PHP-FPM
-EXPOSE 9000
-CMD ["php-fpm"]
+# Expose HTTP port 8000 for Laravel
+EXPOSE 8000
+
+# Start Laravel using the built-in PHP server
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
