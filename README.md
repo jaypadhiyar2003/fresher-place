@@ -105,12 +105,6 @@ Ensure you have the following installed:
 - Email notifications for new job postings
 - Admin panel for managing job listings
 
-## 📄 License
-
-This project is licensed under the **MIT License**.
-
----
-
 ### 💡 Contributions
 Feel free to fork this repository and open a pull request if you want to contribute or enhance the platform!
 
