@@ -28,6 +28,9 @@ class JobController extends Controller
             'tags' => Tag::all(),
         ]);
     }
+    public function show(Job $job){
+        return view('Jobs.show',['job' => $job]);
+    }
 
     /**
      * Show the form for creating a new resource.

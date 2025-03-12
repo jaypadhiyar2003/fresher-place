@@ -9,4 +9,4 @@ if($size == 'small'){
     $classes .= " px-3 py-1 text-xs";
 }
 @endphp
-<a href="/tags/{{ strtolower($tag->name) }}" class="{{ $classes }}">{{ $tag->name }}</a>
+<a href="/tags/{{$tag->name}}" class="{{ $classes }}">{{ $tag->name }}</a>

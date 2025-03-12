@@ -1,6 +1,6 @@
 <x-layout>
     <x-page-heading>
-        Results
+        Jobs that belongs to {{isset($tag) ? $tag->name : $query}}
     </x-page-heading>
 
     <div class="space-y-6">

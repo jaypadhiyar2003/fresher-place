@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Job;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class TagController extends Controller
 {
@@ -12,7 +13,10 @@ class TagController extends Controller
     {
         //jobs for this tag
         //dd($tag);
-        return view('results', ['jobs' => $tag->jobs->load(['employer', 'tags'])]);
+        Log::info('Tag Found: ', ['tag' => $tag]);
+        $jobs = $tag->jobs()->with(['employer', 'tags'])->get();
+
+        return view('results', ['jobs' => $jobs, 'tag' => $tag]);
         //view('results', ['jobs' => $tag->jobs]);
     }
 }

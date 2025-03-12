@@ -11,7 +11,6 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('favicon-16x16.png')}}">
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}" >
 
-
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..600;1,100..600&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
@@ -24,10 +23,10 @@
                 </a>
             </div>
             <div class="space-x-6 font-bold">
-                <a href="">Jobs</a>
-                <a href="">Careers</a>
-                <a href="">Salaries</a>
-                <a href="">Companies</a>
+                <a href="/">Jobs</a>
+                <a href="/">Careers</a>
+                <a href="/">Salaries</a>
+                <a href="/">Companies</a>
             </div>
             @auth
             <div class="space-x-6 font-bold flex">
