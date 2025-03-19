@@ -1,10 +1,10 @@
 <x-layout>
-    <x-page-heading>Register</x-page-heading>
-    <x-forms.form method="POST" action="/register">
-        <x-forms.input label="Name" name="name"></x-forms.input>
-        <x-forms.input label="Email" name="email" type="email"></x-forms.input>
-        <x-forms.input label="Password" name="password" type="password"></x-forms.input>
-        <x-forms.input label="Password Confirmation" name="password_confirmation" type="password"></x-forms.input>
+    <x-page-heading>Company Info</x-page-heading>
+    <x-forms.form method="POST" action="/register" enctype="multipart/form-data">
+        <x-forms.input label="Company Name" name="company_name"></x-forms.input>
+        <x-forms.input label="Company Logo" name="company_logo" type="file"></x-forms.input>
+        <x-forms.textarea label="Address" name="address"></x-forms.textarea>
+        <x-forms.input label="Company size" name="company_size" ></x-forms.input>
         @php
             try {
                 $selectedGender = $customer->gender ?? old('User_type');

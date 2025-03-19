@@ -22,13 +22,26 @@ class RegisteredUserController extends Controller
             'email' => ['required','email','unique:users,email'],
             'password' => ['required','confirmed',Password::min(6)],
         ]);
+        $user_type = $request->validate([
+            'user_type' => ['required'],
+        ]);
+
+        if($user_type['user_type'] =='Em'){
+            $user = User::create($userAttributes);
+            //Auth::login($user);
+            return view('auth.employerInfo', compact('user'));
+        }
+
+        $user = User::create($userAttributes);
+        Auth::login($user);
+        return redirect('/');
 
         $employerAttributes =$request->validate([
             'employer'=>['required'],
             'logo'=>['required',File::types(['jpg','jpeg','png','webp'])],
         ]);
 
-        $user = User::create($userAttributes);
+
         $logo_path = $request->logo->store('logos');
 
         $user->employer()->create([
@@ -36,7 +49,10 @@ class RegisteredUserController extends Controller
             'logo'=>$logo_path,
         ]);
         //$user->employer()->create($employerAttributes);
-        Auth::login($user);
-        return redirect('/');
-    }
+        }
+
+       // public function append(Request $request,User $user)
+        //{
+         //   dd($user->email,$user->password);
+        //}
 }

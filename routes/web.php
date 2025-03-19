@@ -24,5 +24,5 @@ Route::middleware('guest')->group(function(){
     Route::post('/login',[SessionController::class,'store']);
 
 });
-
+//Route::get('/employerInfo',[RegisteredUserController::class,'append']);
 Route::post('/logout',[SessionController::class,'destroy'])->middleware('auth');
