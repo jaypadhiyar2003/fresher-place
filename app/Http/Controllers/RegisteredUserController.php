@@ -21,20 +21,18 @@ class RegisteredUserController extends Controller
             'name' => ['required'],
             'email' => ['required','email','unique:users,email'],
             'password' => ['required','confirmed',Password::min(6)],
-        ]);
-        $user_type = $request->validate([
             'user_type' => ['required'],
+            'contact' => ['required','numeric','unique:users,contact'],
         ]);
-
-        if($user_type['user_type'] =='Em'){
-            $user = User::create($userAttributes);
-            //Auth::login($user);
-            return view('auth.employerInfo', compact('user'));
-        }
-
         $user = User::create($userAttributes);
         Auth::login($user);
-        return redirect('/');
+
+
+        if ($request->user_type == 'Em') {
+            return redirect()->route('employer.info', ['user_id' => $user->id]);
+        } else {
+            return redirect()->route('jobseeker.info', ['user_id' => $user->id]);
+        }
 
         $employerAttributes =$request->validate([
             'employer'=>['required'],
