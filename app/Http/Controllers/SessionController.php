@@ -46,7 +46,7 @@ class SessionController extends Controller
         //success then regenerate session token
         request()->session()->regenerate(); // it is for security that recycle the session. protect from session highjacking
         //redirect
-        return redirect('/jobs');
+        return redirect('/');
 
     }
 
