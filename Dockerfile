@@ -24,6 +24,7 @@ RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 # Install PHP & Node dependencies and build Vite assets
 RUN composer install --no-dev --optimize-autoloader && \
     npm install && npm run build && \
+    php artisan storage:link && \
     php artisan config:cache && \
     php artisan route:cache && \
     php artisan view:cache
