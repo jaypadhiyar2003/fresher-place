@@ -4,6 +4,7 @@
     <div>
        <!-- <img src="http://placehold.co/90x90" alt="" class="rounded-xl"> -->
         <x-employer-logo :employer="$job->employer"/>
+
     </div>
     </a>
 
